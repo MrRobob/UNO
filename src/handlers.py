@@ -15,10 +15,9 @@ def choose_color(game, player):
         chosen_color = farben[int(input("Gib die Nummer der gewünschten Farbe ein: ")) - 1]
         return chosen_color
 
-def handle_plus2(game): 
+def handle_plus2(game, accumulated_cards=2): 
     next_player_index = (game.current_player_index + 1) % len(game.players) 
     next_player = game.players[next_player_index]
-    cards_to_draw = 2
 
     plus2_cards = [card for card in next_player.hand if card.value == "+2"]
     
@@ -28,10 +27,10 @@ def handle_plus2(game):
         game.current_card = card_to_play
         print(f"{next_player} spielt {game.current_card}")
         game.current_player_index = next_player_index
-        handle_plus2(game)
+        handle_plus2(game, accumulated_cards + 2)
     else:
-        print(f"{next_player} zieht {cards_to_draw} Karten") 
-        for _ in range(cards_to_draw):
+        print(f"{next_player} zieht {accumulated_cards} Karten") 
+        for _ in range(accumulated_cards):
             next_player.draw_card(game.deck)
         game.current_player_index = next_player_index
 
