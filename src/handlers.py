@@ -20,16 +20,17 @@ def handle_plus2(game):
     cards_to_draw = 2
     while True: 
         next_player = game.players[next_player_index] 
-        if any(card.value == "+2" for card in next_player.hand):
-            for card in next_player.hand:
-                if card.value == "+2":
-                    game.current_card = next_player.play_card(card)
-                    print(f"{next_player} spielt {game.current_card}")
-                    cards_to_draw += 2
-                    if cards_to_draw > 4:
-                        cards_to_draw = 4
-                    next_player_index = (next_player_index + 1) % len(game.players)
-                    break
+        plus2_cards = [card for card in next_player.hand if card.value == "+2"]
+        
+        if plus2_cards:
+            card_to_play = plus2_cards[0]
+            next_player.hand.remove(card_to_play)
+            game.current_card = card_to_play
+            print(f"{next_player} spielt {game.current_card}")
+            cards_to_draw += 2
+            if cards_to_draw > 4:
+                cards_to_draw = 4
+            next_player_index = (next_player_index + 1) % len(game.players)
         else:
             print(f"{next_player} zieht {cards_to_draw} Karten") 
             for _ in range(cards_to_draw):
