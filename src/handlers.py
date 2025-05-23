@@ -6,13 +6,14 @@ def choose_color(game, player):
     if isinstance(player, Bot):
         chosen_color = player.choose_most_needed_color()
         print(f"{player} wählt {chosen_color}")
+        return chosen_color
     else:
         farben = ["Rot", "Gelb", "Grün", "Blau"]
         print("Wähle eine Farbe:")
         for index, farbe in enumerate(farben):
             print(f"{index + 1}: {farbe}")
         chosen_color = farben[int(input("Gib die Nummer der gewünschten Farbe ein: ")) - 1]
-    return chosen_color
+        return chosen_color
 
 def handle_plus2(game): 
     next_player_index = (game.current_player_index + 1) % len(game.players) 
@@ -38,10 +39,7 @@ def handle_plus2(game):
 
 def handle_plus4(game, player):
     if all(card.color == "Schwarz" or (card.color != game.current_card.color and card.value != game.current_card.value) for card in player.hand):
-        if isinstance(player, Bot):
-            game.current_card.color = player.choose_most_needed_color()
-        else:
-            game.current_card.color = choose_color(game, player)
+        game.current_card.color = choose_color(game, player)
         next_player_index = (game.current_player_index + 1) % len(game.players)
         next_player = game.players[next_player_index]
         
@@ -55,7 +53,7 @@ def handle_plus4(game, player):
     return True
 
 def handle_mische_alle_karten(game): 
-    game.current_card.color = choose_color(game.players[game.current_player_index], game)
+    game.current_card.color = choose_color(game, game.players[game.current_player_index])
     alle_karten = [] 
     for player in game.players: 
         alle_karten.extend(player.hand) 
