@@ -3,10 +3,10 @@ from src.card import Card
 
 def create_deck():  
     colors_and_values = {  
-        "Rot": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Ziehe 2", "Aussetzen"],
-         "Gelb": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Ziehe 2", "Aussetzen"],
-        "Grün": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Ziehe 2", "Aussetzen"],
-        "Blau": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Ziehe 2", "Aussetzen"],
+        "Rot": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+2", "Aussetzen"],
+        "Gelb": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+2", "Aussetzen"],
+        "Grün": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+2", "Aussetzen"],
+        "Blau": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+2", "Aussetzen"],
         "Schwarz": ["+4", "Farbwechsel", "Mische alle Karten"]
     }
     deck = []  
@@ -15,7 +15,7 @@ def create_deck():
             deck.append(Card(color, value))  
             if value != "0":  
                 deck.append(Card(color, value))  
-            if color == "Schwarz" and (value == "+4" or value == "Mische alle Karten"): 
+            if color == "Schwarz" and (value == "+4" or value == "Farbwechsel" or value == "Mische alle Karten"): 
                 deck.append(Card(color, value))  
                 deck.append(Card(color, value))  
     random.shuffle(deck)  

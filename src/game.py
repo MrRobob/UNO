@@ -59,13 +59,6 @@ class Game:
             self.current_card = played_card  
             print(f"{player} spielt {self.current_card}")
 
-            same_cards = [card for card in player.hand if card.color == played_card.color and card.value == played_card.value]
-
-            if played_card.color != "Schwarz" and played_card.value != "+2" and same_cards:
-                print(f"{player} hat weitere {len(same_cards)} {played_card.color} {played_card.value} Karten und spielt diese ebenfalls.")
-                for card in same_cards:
-                    player.hand.remove(card)
-        
             if played_card.value == "Aussetzen": 
                 aussetzen(self) 
             elif played_card.value == "+2": 
@@ -78,7 +71,6 @@ class Game:
                     self.current_player_index = (self.current_player_index - 1) % len(self.players) 
             elif played_card.value == "Mische alle Karten":
                 handle_mische_alle_karten(self)        
-        
         else:
             print(f"{player} zieht 1 Karte")
             player.draw_card(self.deck)
